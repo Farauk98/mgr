@@ -113,68 +113,51 @@ Następnie przeciwnik sprawdza i informuje, czy na podanym polu znajduje się st
 Mówi słowo "pudło" w przypadku, gdy na danym polu nie ma statku, a "trafiony" w przeciwnym przypadku.
 Gdy wszystkie pola danego statku są trafione, statek zostaje zatopiony, a właściciel statku informuje oponenta o jego zatopieniu.
 Gra kończy się, gdy jedna z osób jako pierwsza zatopi wszystkie okręty wroga.
+\chapter{Wstęp}
+\section{Podstawowe Pojecia}
 
+\subsection{Definicje oraz Twierdzenia - Statystyka}
 
-\chapter{Podstawowe pojęcia}
+% Definicja wartości oczekiwanej dla zmiennej dyskretnej
+W trakcie analizy strategii w grze "Statki" będziemy operować skończonymi przestrzeniami.
+Z tego powodu będziemy korzystać z ustalonego nazewnictwa, które zostanie zaczerpnięte z książki \cite{Statystyka_1} 
 
-\section{Definicje i własności}
+\begin{defi}[Wartośc oczekiwana dla zmiennej dyskretnej]\cite{Statystyka_1} 
 
-W niniejszej części pracy podane zostaną pojęcia niezbędne w późniejszych rozważaniach (patrz \cite{Kostrykin} lub \cite{Lang}).
-\begin{defi}
-Niech $G$ będzie niepustym zbiorem. Działaniem w $G$ nazywamy dowolne odwzorowanie $\circ:G\times G\to G$.
+Jeśli \( X \) jest dyskretną zmienną losową przyjmującą wartości \( x_1, x_2, \ldots \) z prawdopodobieństwami \( p_1, p_2, \ldots \), to wartość oczekiwana \( \mathbb{E}(X) \) jest dana wzorem:
+\[
+\mathbb{E}(X) = \sum_{i=1}^{\infty} x_i \cdot p_i
+\]
+\end{defi}
+\begin{defi}[Wariancja dla zmiennej dyskretnej]\cite{Statystyka_1} 
+
+Jeśli \( X \) jest dyskretną zmienną losową przyjmującą wartości \( x_1, x_2, \ldots \) z prawdopodobieństwami \( p_1, p_2, \ldots \) oraz wartością oczekiwaną \( \mathbb{E}(X) \), to wariancja \( \mathrm{Var}(X) \) jest dana wzorem:
+\[
+\mathrm{Var}(X) = \mathbb{E}\left[(X - \mathbb{E}(X))^2\right] = \sum_{i=1}^{\infty} (x_i - \mathbb{E}(X))^2 \cdot p_i
+\]
+\end{defi}
+\begin{defi}[Odchylenie standardowe dla zmiennej dyskretnej]\cite{Statystyka_1} 
+
+Jeśli \( X \) jest dyskretną zmienną losową, to odchylenie standardowe \( \sigma \) jest dane wzorem:
+\[
+\sigma = \sqrt{\mathrm{Var}(X)}
+\]
 \end{defi}
 
-\begin{defi}
-Niech $G$ będzie niepustym zbiorem, $\circ$ działaniem w $G$. Element $e\in G$ nazywamy neutralnym (działania $\circ$), jeśli dla każdego $a\in G$ mamy $a\circ e=e\circ a=a$.
+Test chi-kwadrat jest testem statystycznym używanym do oceny, czy obserwowane częstości zdarzeń różnią się istotnie od tych spodziewanych w założonym modelu. Jest powszechnie stosowany w analizie danych kategorycznych.
+
+\begin{defi}[Test chi-kwadrat]
+  Wartość statystyki chi-kwadrat (\( \chi^2 \)) dla testu chi-kwadrat jest obliczana na podstawie porównania między obserwowanymi (\( O_i \)) a spodziewanymi (\( E_i \)) częstościami w poszczególnych kategoriach. Dla \( k \) kategorii, wzór na \( \chi^2 \) jest następujący:
+  \[ \chi^2 = \sum_{i=1}^{k} \frac{(O_i - E_i)^2}{E_i} \]
+  
+  W przypadku dużych prób, statystyka ta ma rozkład chi-kwadrat z \( k-1 \) stopniami swobody.
 \end{defi}
-
-\begin{lem}\label{lem:element_neutralny}
-Jeśli działanie $\circ$ w $G$ posiada element neutralny, to jest on jeden.
-\end{lem}
-\pd Niech $e,e'\in G$ będą dwoma elementami neutralnymi. Wtedy
-\begin{equation}\label{eq:element_neutralny}
-e=e'\circ e=e'.
-\end{equation}
-Zatem element neutralny jest jeden. \kd
-
-
-\section{Przykłady}
-
-Działaniem w zbiorze liczb naturalnych jest dodawanie, natomiast działaniem w tym zbiorze nie jest odejmowanie.
-
-
-
-
-\chapter{Część główna}
-
-
-
-
-\chapter{Rozdział badawczy}
-
-Praca powinna spełniać wymogi formalne, merytoryczne i redakcyjne opisane w Regulaminie  Studiów (Rozdział IX) oraz w uchwale nr 184 Rady Wydziału Matematyki i Informatyki UŁ z dnia 25.09.2019 ze szczególnym uwzględnieniem wymogu, aby była ona samodzielnym opracowaniem zagadnienia naukowego lub praktycznego albo dokonaniem technicznym, prezentującym ogólną wiedzę i umiejętności studenta, związanym ze studiami na danym kierunku, poziomie i profilu oraz umiejętności samodzielnego analizowania i wnioskowania (Ustawa 2.0 Art. 76 p. 2)
-
-Praca dyplomowa będąca pracą inżynierską powinna zawierać samodzielne opracowanie praktycznego problemu i może mieć charakter projektu, studium porównawczego lub opracowania analitycznego.
-
-
-
-
-\chapter{Zakończenie}
-
-
-
 
 \begin{thebibliography}{7}
 \addcontentsline{toc}{chapter}{Bibliografia}
-%
-\bibitem{Lang}
-Serge Lang, 
-\textit{Algebra. Revised third edition}, 
-New York, Springer-Verlag, 2002.
-%
-\bibitem{Kostrykin} 
-Aleksiej Kostrykin, 
-\textit{Wstęp do algebry. Podstawy algebry},
-Warszawa, Wydawnictwo Naukowe PWN, 2022.
+\bibitem{Statystyka_1} 
+Jacek Koronacki, Jan Mielniczuk 
+\textit{Statystyka dla studentów kierunków technicznych i przyrodniczych},
+Warszawa, Wydawnictwo Naukowo-Techniczne.
 \end{thebibliography}
 \end{document}

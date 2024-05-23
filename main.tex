@@ -64,6 +64,7 @@
 \def\pd{\noindent \textbf{Dowód.~}} %%początek dowodu
 \def\kd{\hfill\mbox{$\rule{2mm}{2mm}$}} %%koniec dowodu
 \newtheorem{defi}{Definicja}[section]
+\newtheorem{strategy}{Strategia}[section]
 \newtheorem{uwaga}{Uwaga}[section]
 \newtheorem{tw}{Twierdzenie}[section]
 \newtheorem{lem}{Lemat}[section]
@@ -91,7 +92,7 @@
 
 
 \chapter{Wstęp}
-
+\section{Kontekst Pracy i Inspiracje}
 \section{Zasady gry}
 Klasyczna gra w "Statki" to strategiczna rozgrywka dla dwóch osób, której 
 celem jest zatopienie wszystkich okrętów przeciwnika. 
@@ -113,12 +114,10 @@ Następnie przeciwnik sprawdza i informuje, czy na podanym polu znajduje się st
 Mówi słowo "pudło" w przypadku, gdy na danym polu nie ma statku, a "trafiony" w przeciwnym przypadku.
 Gdy wszystkie pola danego statku są trafione, statek zostaje zatopiony, a właściciel statku informuje oponenta o jego zatopieniu.
 Gra kończy się, gdy jedna z osób jako pierwsza zatopi wszystkie okręty wroga.
-\chapter{Wstęp}
-\section{Podstawowe Pojecia}
+\section{Cel badania}
+\chapter{Preliminaria}
+\section{Elementy Statystyki}
 
-\subsection{Definicje oraz Twierdzenia - Statystyka}
-
-% Definicja wartości oczekiwanej dla zmiennej dyskretnej
 W trakcie analizy strategii w grze "Statki" będziemy operować skończonymi przestrzeniami.
 Z tego powodu będziemy korzystać z ustalonego nazewnictwa, które zostanie zaczerpnięte z książki \cite{Statystyka_1} 
 
@@ -147,17 +146,66 @@ Jeśli \( X \) jest dyskretną zmienną losową, to odchylenie standardowe \( \s
 Test chi-kwadrat jest testem statystycznym używanym do oceny, czy obserwowane częstości zdarzeń różnią się istotnie od tych spodziewanych w założonym modelu. Jest powszechnie stosowany w analizie danych kategorycznych.
 
 \begin{defi}[Test chi-kwadrat]
-  Wartość statystyki chi-kwadrat (\( \chi^2 \)) dla testu chi-kwadrat jest obliczana na podstawie porównania między obserwowanymi (\( O_i \)) a spodziewanymi (\( E_i \)) częstościami w poszczególnych kategoriach. Dla \( k \) kategorii, wzór na \( \chi^2 \) jest następujący:
-  \[ \chi^2 = \sum_{i=1}^{k} \frac{(O_i - E_i)^2}{E_i} \]
-  
-  W przypadku dużych prób, statystyka ta ma rozkład chi-kwadrat z \( k-1 \) stopniami swobody.
-\end{defi}
+Wartość statystyki chi-kwadrat (\( \chi^2 \)) dla testu chi-kwadrat jest obliczana na podstawie porównania między obserwowanymi (\( O_i \)) a spodziewanymi (\( E_i \)) częstościami w poszczególnych kategoriach. Dla \( k \) kategorii, wzór na \( \chi^2 \) jest następujący:
+\[ \chi^2 = \sum_{i=1}^{k} \frac{(O_i - E_i)^2}{E_i} \]
 
-\begin{thebibliography}{7}
-\addcontentsline{toc}{chapter}{Bibliografia}
-\bibitem{Statystyka_1} 
-Jacek Koronacki, Jan Mielniczuk 
-\textit{Statystyka dla studentów kierunków technicznych i przyrodniczych},
-Warszawa, Wydawnictwo Naukowo-Techniczne.
-\end{thebibliography}
+W przypadku dużych prób, statystyka ta ma rozkład chi-kwadrat z \( k-1 \) stopniami swobody.
+\end{defi}
+\section{Elementy Teorii Gieri}\chapter{Strategie}
+
+\begin{strategy}[Strzelanie losowe]\cite{yt_1}
+
+W tej strategii wybiera się pola do strzelania w losowy sposób, bez żadnego wzoru czy systemu. 
+Polega ona na losowaniu pól, które nie zostały jeszcze zestrzelone, tzw. losowaniu bez zwracania.
+\end{strategy}
+
+Ta metoda jest łatwa do zastosowania, ale może być mniej efektywna, 
+ponieważ nie bierze pod uwagę żadnych wzorców ani statystyk dotyczących rozmieszczenia statków przeciwnika. 
+Jest to strategia o niskiej złożoności, która nie wymaga skomplikowanych obliczeń ani planowania. 
+
+\begin{strategy}[Szachownica]\cite{yt_1}
+
+Ta strategia polega na strzelaniu w co drugie pole, tworząc wzór szachownicy.
+\end{strategy}
+
+Dzięki temu pokrywamy równomiernie połowę planszy, co zwiększa prawdopodobieństwo trafienia większych statków, 
+które zajmują kilka pól. 
+W taki sposób na pewno trafimy w każdy statek w najgorszej sytuacji w połowie wszystkich możliwych strzałow do wykonania. 
+Po wykryciu fragmentu statku, 
+można przejść do bardziej szczegółowej analizy sąsiednich pól i skorzystać z następnej strategii, 
+aby zlokalizować pozostałą część statku.
+
+\begin{strategy}[Strzelanie po trafieniu]\cite{yt_1}
+
+Po trafieniu statku, gracz kontynuuje strzelanie w sąsiednie pola, aby zlokalizować cały statek.
+\end{strategy}
+
+Po trafieniu jednego z pól statku, można strzelać w cztery sąsiednie pola (góra, dół, lewo, prawo), 
+aby znaleźć pozostałe części. Jeżeli kolejne trafienie nastąpi w jednym z tych pól, 
+strategię tę kontynuuje się liniowo w kierunku, który okazał się skuteczny, 
+aż do całkowitego zatopienia statku. W przypadku, gdy trafienie nastąpi w pobliżu krawędzi planszy, 
+istniejące pola do strzału mogą być mniej liczne, co należy uwzględnić podczas kontynuacji strategii. 
+Ta metoda jest bardziej efektywna od strzelania losowego, 
+ponieważ zmniejsza liczbę potrzebnych strzałów do zatopienia statku.
+
+Każda z tych strategii ma swoje zalety i wady, a ich skuteczność może zależeć od etapu gry oraz stylu gry przeciwnika. 
+Optymalnym podejściem może być łączenie różnych strategii w zależności od sytuacji na planszy, 
+co pozwoli na maksymalizację efektywności strzałów i szybkie zlokalizowanie oraz zatopienie wszystkich statków przeciwnika. 
+W następnych rozdziałach zostanie przedstawionych kilka strategii opartych na wcześniej wspomnianych strategiach.
+\begin{thebibliography}{9}
+  \addcontentsline{toc}{chapter}{Bibliografia}
+  
+  \bibitem{Statystyka_1} 
+  Koronacki, Jacek, Mielniczuk, Jan. 
+  \textit{Statystyka dla studentów kierunków technicznych i przyrodniczych}. 
+  Warszawa: Wydawnictwo Naukowo-Techniczne, 2001.
+  
+  \bibitem{yt_1} 
+  @digitalgenius111. 
+  \textit{How to 'always' win at Battleship?}. 
+  [Online]. Available: https://www.youtube.com/watch?v=8FctDuTfcO8. 
+  [Accessed: 23-May-2024].
+  
+  \end{thebibliography}
+  
 \end{document}
